@@ -46,6 +46,22 @@ div.p3 {
     width: 80vw;
 
 }
+div.container{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    height: 50vh;
+    width: 50vw;
+    background-color: lightgray;
+    color: black;
+}
+div.flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
 
 div.homebuttons{
     display: flex;

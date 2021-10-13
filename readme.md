@@ -1,5 +1,5 @@
-# Project 1 - EDMDB 
-A simple web application that uses two databases to search for EDM and related event
+# Project 2 - DNDdB 
+A simple web application to create and manage dnd character sheets
 
 *Created by Zachary Gomez*
 

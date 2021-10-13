@@ -1,171 +1,80 @@
-$('.stat').bind('input', function()
-    {
-      var inputName = $(this).attr('name')
-      var mod = parseInt($(this).val()) - 10
+//auto fill in modifier from math involved with score
+$('.stat').bind('input', function(){
+      const inputName = $(this).attr('name')
+      const mod = parseInt($(this).val()) - 10
       
+      // down to nearest even value divided by 2 = modifier score
       if (mod % 2 == 0)
         mod = mod / 2
       else
         mod = (mod - 1) / 2
   
+      // Correction for unfilled stat
       if (isNaN(mod))
         mod = ""
       else if (mod >= 0)
         mod = "+" + mod
-  
+
+      //remove score from the name of the stat so that the name can be used to search for the modifier
       var scoreName = inputName.slice(0, inputName.indexOf("score"))
       var modName = scoreName + "mod"
-      
+      //edit the stats corresponding modifier 
       $("[name='" + modName + "']").val(mod)
     })
 
-$('.statmod').bind('change', function()
-{
-  var name = $(this).attr('name')
-  name = "uses" + name.slice(0, name.indexOf('mod'))
-  
-})
-
-$("[name='classlevel']").bind('input', function()
-  {
-    var classes = $(this).val()
-    var r = new RegExp(/\d+/g)
-    var total = 0
-    var result
-    while ((result = r.exec(classes)) != null)
-    {
-      var lvl = parseInt(result)
+// automate prof bonus calculation on input, function mainly adds all integers for single and multi class
+$("[name='classlevel']").bind('input', function() {
+    const classes = $(this).val()
+    // \d is to match digit 
+    // + for at least one == more than one
+    // /g for global
+    const r = new RegExp(/\d+/g)
+    let total = 0
+    let result
+    // grab number from class level
+    // each r.exec will search through each int in classes eventually returning null when search has completed
+    while ((result = r.exec(classes)) != null){
+      let lvl = parseInt(result)
       if (!isNaN(lvl))
         total += lvl
     }
-    var prof = 2
-    if (total > 0)
-    {
+    // level calculation from 5e
+    let prof = 2
+    if (total > 0){
       total -= 1
       prof += Math.trunc(total/4)
       prof = "+" + prof
     }
-    else
-    {
+    else{
       prof = ""    
     }
     $("[name='proficiencybonus']").val(prof)
-  })
-
-function totalhd_clicked()
-{
-  $("[name='remaininghd']").val($("[name='totalhd']").val())
-}
-
-const submit = () => { 
-  var form = document.getElementById("charsheet");
-  document.getElementById("your-id").addEventListener("click", function () {
-    console.log("hey look listen"+form)
-  form.submit();
-});
-}
+})
 
 
-function save_character()
-{
-  console.log("Saving character...")
+// const submit = () => { 
+//   var form = document.getElementById("charsheet");
+//   document.getElementById("your-id").addEventListener("click", function () {
+//     console.log("hey look listen"+form)
+//   form.submit();
+// });
+// }
 
-  var filename = ".dnd";
-  if (document.getElementById('charname').value == "") {
-    filename = "CharacterSheet" + filename;
-  } else {
-    filename = document.getElementById('charname').value + filename;
-  }
 
-  // Prepare form data for JSON format
-  const formId = "charsheet";
-  var url = location.href;
-  const formIdentifier = `${url} ${formId}`;
-  let form = document.querySelector(`#${formId}`);
-  let formElements = form.elements;
 
-  let data = { [formIdentifier]: {} };
-  for (const element of formElements) {
-    if (element.name.length > 0) {
-      if (element.type == 'checkbox') {
-        var checked = ($("[name='" + element.name + "']").prop("checked") ? 'checked' : 'unchecked');
-        data[formIdentifier][element.name] = checked;
-      } else {
-        data[formIdentifier][element.name] = element.value;
-      }
-    }
-  }
-  data = JSON.stringify(data[formIdentifier], null, 2)
-  type = 'application/json'
 
-  // Save JSON to file
-  var file = new Blob([data], {type: type});
-  if (window.navigator.msSaveOrOpenBlob) // IE10+
-      window.navigator.msSaveOrOpenBlob(file, filename);
-  else { // Others
-      var a = document.createElement("a"),
-              url = URL.createObjectURL(file);
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(function() {
-          document.body.removeChild(a);
-          window.URL.revokeObjectURL(url);  
-      }, 0); 
-  }
-}
+// // Protective autosave feature
+// window.onbeforeunload = function(){
+//   if ($("[name='autosave']").prop("checked") == true) {
+//     // $('#charsheet').attr('action', '/characters/<%= character._id %>?_method=PUT')
+//     // $('#charsheet').attr('method', 'post')
+//     // console.log("Saving changes, say thanks to Autosave!");
+//     // $('#charsheet').submit()
+//     return 'You have unsaved changes!';
+//   }
+// }
 
-// Protective autosave feature
-window.onbeforeunload = function(){
-  if ($("[name='autosave']").prop("checked") == true) {
-    save_character();
-  }
-}
 
-// Functions for reading character from disk
-function load_character(e) {
-
-  // Autosave character
-  if ($("[name='autosave']").prop("checked") == true) {
-    save_character();
-  }
-
-  // Load character
-  var file = e.target.files[0];
-  if (!file) {
-    return;
-  }
-  var reader = new FileReader();
-  reader.onload = function(e) {
-    var contents = e.target.result;
-
-    // Set size of dynamic tables
-    var savedData = JSON.parse(contents);
-    
-    // Prepare form data for JSON format
-    const formId = "charsheet";
-    var url = location.href;
-    const formIdentifier = `${url} ${formId}`;
-    let form = document.querySelector(`#${formId}`);
-    let formElements = form.elements;
-
-    // Display file content
-    savedData = JSON.parse(contents); // get and parse the saved data from localStorage
-    for (const element of formElements) {
-      if (element.name in savedData) {
-        if (element.type == 'checkbox') {
-          var checked = (savedData[element.name] == 'checked');
-          $("[name='" + element.name + "']").prop("checked", checked)
-        } else {
-          element.value = savedData[element.name]; 
-        }
-      }
-    }
-  };
-  reader.readAsText(file);
-}
-document.getElementById('buttonload').addEventListener('change', load_character, false);
 
 function long_rest()
 {
@@ -184,18 +93,6 @@ function long_rest()
 
   $("[name='currenthp']").val($("[name='maxhp']").val())
   $("[name='remaininghd']").val($("[name='totalhd']").val())
-
-  $("[name='spellslots1']").val($("[name='spellslotsmax1']").val())
-  $("[name='spellslots2']").val($("[name='spellslotsmax2']").val())
-  $("[name='spellslots3']").val($("[name='spellslotsmax3']").val())
-  $("[name='spellslots4']").val($("[name='spellslotsmax4']").val())
-  $("[name='spellslots5']").val($("[name='spellslotsmax5']").val())
-  $("[name='spellslots6']").val($("[name='spellslotsmax6']").val())
-  $("[name='spellslots7']").val($("[name='spellslotsmax7']").val())
-  $("[name='spellslots8']").val($("[name='spellslotsmax8']").val())
-  $("[name='spellslots9']").val($("[name='spellslotsmax9']").val())
-  $("[name='pactslots1']").val($("[name='pactslotsmax1']").val())
-
   $("[name='deathsuccess1']").prop("checked", false);
   $("[name='deathsuccess2']").prop("checked", false);
   $("[name='deathsuccess3']").prop("checked", false);
@@ -203,7 +100,7 @@ function long_rest()
   $("[name='deathfail2']").prop("checked", false);
   $("[name='deathfail3']").prop("checked", false);
 
-  alert("Hit points, hit dice, and spell slots have been refreshed.\n\nPlease remember to reset Limited Use abilities, temporary hit points, and other effects as needed.")
+  alert("Hit points and hit dice refreshed.\n\nPlease remember to reset temporary hit points, and other effects as needed.")
 }
 
  

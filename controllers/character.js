@@ -60,9 +60,15 @@ router.get("/:id/edit", (req, res) => {
   // get the id from params
   const id = req.params.id;
   // get the character from the database
-  Character.findById(id, (err, characters) => {
+  Character.findById(id, (err, character) => {
+      // Fix for null int
+      for (let key in character) {
+        if (!character.hasOwnProperty(key)) {
+          character[key] = character[key] == null ? 0 : character[key];
+        }
+      }
     // render template and send it character
-    res.render("characters/edit", { characters });
+    res.render("characters/edit", { character });
   });
 });
 
@@ -107,7 +113,7 @@ router.get("/:id", (req, res) => {
       }
     }
     // render the template with the data from the database
-    res.render("characters/show.ejs", { character });
+    res.render("characters/show", { character });
   });
 });
 

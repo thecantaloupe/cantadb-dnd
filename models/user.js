@@ -5,32 +5,33 @@ const mongoose = require("./connection")
 /////////////////////////////////////////
 // Our Model
 /////////////////////////////////////////
+const roles = {
+    USER: "user",
+    ADMIN: "admin",
+};
+
 const {Schema, model} = mongoose
 
-const userSchema = new Schema({
-    username: {type: String, required: true, unique: true},
-    password: {type: String, required: true}
-})
+// Testing discriminators 
+var guestSchema = new Schema({
+  date: { type: Date, default: Date.now },
+});
+
+var Guest = model('Guest', guestSchema);
 
 //Schema for user or admin
-const regularUserSchema = new Schema({
-    user: userSchema,
-    // regular-only properties
-    roles: {type: String, required: true}
-})
+const userSchema = new Schema({
+    username: {type: String, required: true, unique: true},
+    password: {type: String, required: true},
+    role: {type: String, enum: Object.values(roles)},
+    date: { type: Date, default: Date.now },
+});
 
-const adminUserSchema = new Schema({
-    user: userSchema,
-    // admin-only properties
-    roles: {type: String, required: true}
-    
-})
+const User = model("User", userSchema)
 
-const User = model("User", regularUserSchema)
-const Admin = model("Admin", adminUserSchema)
-
-//export the model
+// export the model
 module.exports = {
-    User: User,
-    Admin: Admin
+    Guest: Guest,
+    User: User
 }
+

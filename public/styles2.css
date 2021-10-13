@@ -1,0 +1,56 @@
+.bg {
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: auto;
+}
+.pd {
+    padding: 200px 0px;
+}
+.button, button, input[type='button'], input[type='reset'], input[type='submit'] {
+    margin: 10px 0px;
+    background-color: rgb(71, 19, 19);
+    border: 0.1rem solid white;
+    height: 4.2rem;
+}
+
+
+label {
+    color: white;
+    display:grid;
+}
+input[type=text],input[type=password]  {
+    background-color: rgba(163, 152, 152, 0.404);
+    max-width: 400px;
+}
+main.home {
+    height: 800px;
+    width: 80vw;
+}
+.b1 {
+    background-image: url("https://dungeonsolvers.com/wp-content/uploads/2018/05/the-face.jpg");
+}
+.b2 {
+    background-image: url("https://media-waterdeep.cursecdn.com/attachments/8/327/tasha_homepage.jpg");
+}
+.b3 {
+    background-image: url("https://www.dndbeyond.com/content/images/landing-pages/cs/character-sheet-hero-background-tablet.jpg");
+}
+
+div.p2 {
+    height: 500px;
+    width: 80vw;
+    
+}
+div.p3 {
+    height: 700px;
+    width: 80vw;
+
+}
+
+div.homebuttons{
+    display: flex;
+    justify-content: space-around;
+}
+body {
+    background-color: rgb(39, 24, 5);
+}

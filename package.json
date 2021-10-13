@@ -9,21 +9,26 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thecantaloupe/heroku_mongodb.git"
+    "url": "git+https://github.com/thecantaloupe/cantadb-dnd.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/thecantaloupe/heroku_mongodb/issues"
+    "url": "https://github.com/thecantaloupe/cantadb-dnd/issues"
   },
-  "homepage": "https://github.com/thecantaloupe/heroku_mongodb#readme",
+  "homepage": "https://github.com/thecantaloupe/cantadb-dnd#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-mongo": "^4.6.0",
     "csv": "^5.5.3",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
+    "ejs-locals": "^1.0.2",
     "express": "^4.17.1",
+    "express-session": "^1.17.2",
     "method-override": "^3.0.0",
-    "mongoose": "^6.0.7",
+    "mongoose": "^6.0.10",
+    "morgan": "^1.10.0",
     "prompt-sync": "^4.2.0"
   }
 }

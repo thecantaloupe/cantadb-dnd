@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- partial("../partials/head") %>
+
+<body>
+  <%- partial("../partials/header", {path:"./"}) %>
+<div class="b1">
+  <% for (character of characters) { %>
+<div class="container">
+  <form class="charsheet" id="charsheet" >
+    <!-- Section for Top Buttons -->
+    <header>
+      <section style="display: flex; padding: 10px;">
+        <label for="buttonload" id="loadlabel" style="text-transform:Capitalize;">Load Character:</label>
+        <a href="./characters/<%=character._id%>"><button name="buttonload" id="buttonload" type="button" style="width:200px;margin-bottom:5px;">Load</button></a> 
+        <div style="text-transform:Capitalize;font-weight:bold;padding:0px 10px;">
+          <label for="currenthp" style="padding-right: 10px;">Current Hit Points</label><input name="currenthp" placeholder="10" value="<%= character.currenthp %>" id="rounder" type="text" />
+        </div>
+      </section>
+    </header>
+    <!-- fieldset to make the form unclickable  -->
+    <fieldset style="border: 0" disabled="disabled">
+      <!-- Section for Character Name etc -->
+      <header>
+        <section class="charname">
+          <label for="charname">Character Name</label><input name="charname" value="<%= character.charname %>" id="charname" placeholder="Character Name" />
+        </section>
+        <section class="misc">
+          <ul>
+            <li>
+              <label for="classlevel">Class & Level</label><input name="classlevel" value="<%= character.classlevel %>" placeholder="Class 1" />
+            </li>
+            <li>
+              <label for="background">Background</label><input name="background" value="<%= character.background %>" placeholder="Background" />
+            </li>
+            <li>
+              <label for="playername">Player Name</label><input name="playername" value="<%= character.playername %>" placeholder="Player Name">
+            </li>
+            <li>
+              <label for="race">Race</label><input name="race" value="<%= character.race %>" placeholder="Race" />
+            </li>
+            <li>
+              <label for="alignment">Alignment</label><input name="alignment" value="<%= character.alignment %>" placeholder="Alignment" />
+            </li>
+            <li>
+              <label for="experiencepoints">Experience Points</label><input name="experiencepoints" value="<%= character.experiencepoints %>" placeholder="0" />
+            </li>
+          </ul>
+        </section>
+      </header>
+  </form>
+</fieldset>
+<form class="charsheet" action="/characters/<%=character._id %>?_method=DELETE" method="POST" style="margin-top: 0;">
+<input type="submit" value="Delete"/>
+</form>
+</div>
+<% } %>
+</div>
+</body>
+</html>

@@ -1,11 +1,23 @@
 /////////////////////////////////////////
 // Dependencies
 /////////////////////////////////////////
-
-
+require("dotenv").config(); // Load ENV Variables
+// packages
+const express = require("express") // import express
+    , morgan = require("morgan") //import morgan
+    , methodOverride = require("method-override")
+    , session = require("express-session")
+    , engine = require('ejs-locals')
+//Routers
+const CharacterRouter = require("../controllers/character")
+    ,UserRouter = require("../controllers/user")
+    ,HomeRouter = require("../controllers/home");
+    
+const MongoStore = require("connect-mongo")
 /////////////////////////////////////
 // MiddleWare Function
 //////////////////////////////////////
+
 const middleware = (app) => {
     app.use(morgan("tiny")); //logging
     app.use(methodOverride("_method")); // override for put and delete requests from forms
@@ -21,7 +33,7 @@ const middleware = (app) => {
         resave: false,
       })
     );
-    app.use("/animals", FruitRouter);
+    app.use("/characters", CharacterRouter);
     app.use("/user", UserRouter);
     app.use("/", HomeRouter)
   };

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- partial("../partials/head") %>
+
+<body>
+<%- partial("../partials/header", {path:"../"}) %>
+<div class="container">
+  <form class="charsheet" id="charsheet" readonly>
+    <!-- Section for Top Buttons -->
+    <header>
+      <section>
+        <button name="buttonsave" type="button" onclick="save_character()" style="width:100px;margin-bottom:5px;margin-right:30px;">Save Character</button>
+        <label for="buttonload" id="loadlabel" style="text-transform:Capitalize;">Load Character</label><input name="buttonload" id="buttonload" type="file" style="width:200px;margin-bottom:5px;" />
+        <button name="buttonrest" type="button" onclick="long_rest()" style="width:100px;margin-bottom:5px;margin-left:30px;">Long Rest</button>
+        <label for="autosave" style="text-transform:Capitalize;font-weight:bold;padding:0px 10px;">Autosave?</label><input name="autosave" id="autosave" type="checkbox" />
+      </section>
+    </header>
+    <!-- fieldset to make the button unclickable -->
+    <fieldset style="border: 0" disabled="disabled">
+    <!-- Section for Character Name etc -->
+    <header>
+      <section class="charname">
+        <label for="charname">Character Name</label><input name="charname" value="<%= character.charname %>" id="charname" placeholder="Character Name" />
+      </section>
+      <section class="misc">
+        <ul>
+          <li>
+            <label for="classlevel">Class & Level</label><input name="classlevel" value="<%= character.classlevel %>" placeholder="Class 1" />
+          </li>
+          <li>
+            <label for="background">Background</label><input name="background" value="<%= character.background %>" placeholder="Background" />
+          </li>
+          <li>
+            <label for="playername">Player Name</label><input name="playername" value="<%= character.playername %>" placeholder="Player Name">
+          </li>
+          <li>
+            <label for="race">Race</label><input name="race" value="<%= character.race %>" placeholder="Race" />
+          </li>
+          <li>
+            <label for="alignment">Alignment</label><input name="alignment" value="<%= character.alignment %>" placeholder="Alignment" />
+          </li>
+          <li>
+            <label for="experiencepoints">Experience Points</label><input name="experiencepoints" value="<%= character.experiencepoints %>" placeholder="0" />
+          </li>
+        </ul>
+      </section>
+    </header>
+    <!-- Section for Character Stats -->
+    <main>
+      <section>
+        <section class="attributes">
+          <div class="scores">
+            <ul>
+              <li>
+                <div class="score">
+                  <label for="Strengthscore">Strength</label><input name="Strengthscore" value="<%= character.Strengthscore %>" placeholder="10" class="stat"/>
+                </div>
+                <div class="modifier">
+                  <input name="Strengthmod" value="<%= character.Strengthmod %>" placeholder="+0" class="statmod"/>
+                </div>
+              </li>
+              <li>
+                <div class="score">
+                  <label for="Dexterityscore">Dexterity</label><input name="Dexterityscore" value="<%= character.Dexterityscore %>" placeholder="10" class="stat"/>
+                </div>
+                <div class="modifier">
+                  <input name="Dexteritymod" value="<%= character.Dexteritymod %>" placeholder="+0" class=statmod/>
+                </div>
+              </li>
+              <li>
+                <div class="score">
+                  <label for="Constitutionscore">Constitution</label><input name="Constitutionscore" value="<%= character.Constitutionscore %>" placeholder="10" class="stat"/>
+                </div>
+                <div class="modifier">
+                  <input name="Constitutionmod" value="<%= character.Constitutionmod %>" placeholder="+0" class="statmod"/>
+                </div>
+              </li>
+              <li>
+                <div class="score">
+                  <label for="Intelligencescore">Intelligence</label><input name="Intelligencescore" value="<%= character.Intelligencescore %>" placeholder="10" class="stat"/>
+                </div>
+                <div class="modifier">
+                  <input name="Intelligencemod" value="<%= character.Intelligencemod %>" placeholder="+0" class="statmod"/>
+                </div>
+              </li>
+              <li>
+                <div class="score">
+                  <label for="Wisdomscore">Wisdom</label><input name="Wisdomscore" value="<%= character.Wisdomscore %>" placeholder="10" class="stat"/>
+                </div>
+                <div class="modifier">
+                  <input name="Wisdommod" value="<%= character.Wisdommod %>" placeholder="+0" />
+                </div>
+              </li>
+              <li>
+                <div class="score">
+                  <label for="Charismascore">Charisma</label><input name="Charismascore" value="<%= character.Charismascore %>" placeholder="10" class="stat"/>
+                </div>
+                <div class="modifier">
+                  <input name="Charismamod" value="<%= character.Charismamod %>" placeholder="+0" class="statmod"/>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="attr-applications">
+            <div class="proficiencybonus box">
+              <div class="label-container">
+                <label for="inspiration">Inspiration</label>
+              </div>
+              <input name="inspiration" value="<%= character.inspiration %>" placeholder="" />
+            </div>
+            <div class="proficiencybonus box">
+              <div class="label-container">
+                <label for="proficiencybonus">Proficiency Bonus</label>
+              </div>
+              <input name="proficiencybonus" value="<%= character.proficiencybonus %>" placeholder="+2" />
+            </div>
+            <div class="saves list-section box">
+              <ul>
+                <li>
+                  <label for="Strengthsave">Strength</label><input name="Strengthsave" value="<%= character.Strengthsave %>" placeholder="+0" type="text" /><input name="Strengthsaveprof" type="checkbox" <%= character.Strengthsaveprof ? "checked" : ""%> />
+                </li>
+                <li>
+                  <label for="Dexteritysave">Dexterity</label><input name="Dexteritysave" value="<%= character.Dexteritysave %>" placeholder="+0" type="text" /><input name="Dexteritysaveprof" type="checkbox" <%= character.Dexteritysaveprof ? "checked" : ""%> />
+                </li>
+                <li>
+                  <label for="Constitutionsave">Constitution</label><input name="Constitutionsave" value="<%= character.Constitutionsave %>" placeholder="+0" type="text" /><input name="Constitutionsaveprof" type="checkbox" <%= character.Constitutionsaveprof ? "checked" : ""%> />
+                </li>
+                <li>
+                  <label for="Intelligencesave">Intelligence</label><input name="Intelligencesave" value="<%= character.Intelligencesave %>" placeholder="+0" type="text" /><input name="Intelligencesaveprof" type="checkbox" <%= character.Intelligencesaveprof ? "checked" : ""%> />
+                </li>
+                <li>
+                  <label for="Wisdomsave">Wisdom</label><input name="Wisdomsave" value="<%= character.Wisdomsave %>" placeholder="+0" type="text" /><input name="Wisdomsaveprof" type="checkbox" <%= character.Wisdomsaveprof ? "checked" : ""%> />
+                </li>
+                <li>
+                  <label for="Charismasave">Charisma</label><input name="Charismasave" value="<%= character.Charismasave %>" placeholder="+0" type="text" /><input name="Charismasaveprof" type="checkbox" <%= character.Charismasaveprof ? "checked" : ""%> />
+                </li>
+              </ul>
+              <div class="label">
+                Saving Throws
+              </div>
+            </div>
+            <div class="skills list-section box">
+              <ul>
+                <li>
+                  <label for="Acrobatics">Acrobatics <span class="skill">(Dex)</span></label><input name="Acrobatics" value="<%= character.Acrobatics %>" placeholder="+0" type="text" /><input name="Acrobaticsprof" type="checkbox" <%= character.Acrobaticsprof ? "checked" : ""%> />
+                </li>
+                <li>
+                  <label for="AnimalHandling">Animal Handling <span class="skill">(Wis)</span></label><input name="AnimalHandling" value="<%= character.AnimalHandling %>" placeholder="+0" type="text" /><input name="AnimalHandlingprof" type="checkbox" <%= character.AnimalHandlingprof ? "checked" : ""%> />
+                </li>
+                <li>
+                  <label for="Arcana">Arcana <span class="skill">(Int)</span></label><input name="Arcana" value="<%= character.Arcana %>" placeholder="+0" type="text" /><input name="Arcanaprof" type="checkbox" <%= character.Arcanaprof ? "checked" : ""%> />
+                </li>
+                <li>
+                  <label for="Athletics">Athletics <span class="skill">(Str)</span></label><input name="Athletics" value="<%= character.Athletics %>" placeholder="+0" type="text" /><input name="Athleticsprof" type="checkbox" <%= character.Athleticsprof ? "checked" : ""%> />
+                </li>
+                <li>
+                  <label for="Deception">Deception <span class="skill">(Cha)</span></label><input name="Deception" value="<%= character.Deception %>" placeholder="+0" type="text" /><input name="Deceptionprof" type="checkbox" <%= character.Deceptionprof ? "checked" : ""%> />
+                </li>
+                <li>
+                  <label for="History">History <span class="skill">(Int)</span></label><input name="History" value="<%= character.History %>" placeholder="+0" type="text" /><input name="Historyprof" type="checkbox" <%= character.Historyprof ? "checked" : ""%> />
+                </li>
+                <li>
+                  <label for="Insight">Insight <span class="skill">(Wis)</span></label><input name="Insight" value="<%= character.Insight %>" placeholder="+0" type="text" /><input name="Insightprof" type="checkbox" <%= character.Insightprof ? "checked" : ""%> />
+                </li>
+                <li>
+                  <label for="Intimidation">Intimidation <span class="skill">(Cha)</span></label><input name="Intimidation" value="<%= character.Intimidation %>" placeholder="+0" type="text" /><input name="Intimidationprof" type="checkbox" <%= character.Intimidationprof ? "checked" : ""%> />
+                </li>
+                <li>
+                  <label for="Investigation">Investigation <span class="skill">(Int)</span></label><input name="Investigation" value="<%= character.Investigation %>" placeholder="+0" type="text" /><input name="Investigationprof" type="checkbox" <%= character.Investigationprof ? "checked" : ""%> />
+                </li>
+                <li>
+                  <label for="Medicine">Medicine <span class="skill">(Wis)</span></label><input name="Medicine" value="<%= character.Medicine %>" placeholder="+0" type="text" /><input name="Medicineprof" type="checkbox" <%= character.Medicineprof ? "checked" : ""%> />
+                </li>
+                <li>
+                  <label for="Nature">Nature <span class="skill">(Int)</span></label><input name="Nature" value="<%= character.Nature %>" placeholder="+0" type="text" /><input name="Natureprof" type="checkbox" <%= character.Natureprof ? "checked" : ""%> />
+                </li>
+                <li>
+                  <label for="Perception">Perception <span class="skill">(Wis)</span></label><input name="Perception" value="<%= character.Perception %>" placeholder="+0" type="text" /><input name="Perceptionprof" type="checkbox" <%= character.Perceptionprof ? "checked" : ""%> />
+                </li>
+                <li>
+                  <label for="Performance">Performance <span class="skill">(Cha)</span></label><input name="Performance" value="<%= character.Performance %>" placeholder="+0" type="text" /><input name="Performanceprof" type="checkbox" <%= character.Performanceprof ? "checked" : ""%> />
+                </li>
+                <li>
+                  <label for="Persuasion">Persuasion <span class="skill">(Cha)</span></label><input name="Persuasion" value="<%= character.Persuasion %>" placeholder="+0" type="text" /><input name="Persuasionprof" type="checkbox" <%= character.Persuasionprof ? "checked" : ""%> />
+                </li>
+                <li>
+                  <label for="Religion">Religion <span class="skill">(Int)</span></label><input name="Religion" value="<%= character.Religion %>" placeholder="+0" type="text" /><input name="Religionprof" type="checkbox" <%= character.Religionprof ? "checked" : ""%> />
+                </li>
+                <li>
+                  <label for="SleightofHand">Sleight of Hand <span class="skill">(Dex)</span></label><input name="SleightofHand" value="<%= character.SleightofHand %>" placeholder="+0" type="text" /><input name="SleightofHandprof" type="checkbox" <%= character.SleightofHandprof ? "checked" : ""%> />
+                </li>
+                <li>
+                  <label for="Stealth">Stealth <span class="skill">(Dex)</span></label><input name="Stealth" value="<%= character.Stealth %>" placeholder="+0" type="text" /><input name="Stealthprof" type="checkbox" <%= character.Stealthprof ? "checked" : ""%> />
+                </li>
+                <li>
+                  <label for="Survival">Survival <span class="skill">(Wis)</span></label><input name="Survival" value="<%= character.Survival %>" placeholder="+0" type="text" /><input name="Survivalprof" type="checkbox" <%= character.Survivalprof ? "checked" : ""%> />
+                </li>
+              </ul>
+              <div class="label">
+                Skills
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+      <section>
+        <section class="combat">
+          <div class="armorclass">
+            <div>
+              <label for="ac">Armor Class</label><input name="ac" value="<%= character.ac %>" placeholder="10" type="text" />
+            </div>
+          </div>
+          <div class="initiative">
+            <div>
+              <label for="initiative">Initiative</label><input name="initiative" value="<%= character.initiative %>" placeholder="+0" type="text" />
+            </div>
+          </div>
+          <div class="speed">
+            <div>
+              <label for="speed">Speed</label><input name="speed" value="<%= character.speed %>" placeholder="30ft" type="text" />
+            </div>
+          </div>
+  
+          <!-- Copy above format for HP -->
+          <div class="armorclass">
+            <div>
+              <label for="currenthp">Current Hit Points</label><input name="currenthp" value="<%= character.currenthp %>" placeholder="10" type="text" />
+            </div>
+          </div>
+          <div class="initiative">
+            <div>
+              <label for="maxhp">Hit Point Maximum</label><input name="maxhp" value="<%= character.maxhp %>" placeholder="10" type="text" />
+            </div>
+          </div>
+          <div class="speed">
+            <div>
+              <label for="temphp">Temporary Hit Points</label><input name="temphp" value="<%= character.temphp %>" placeholder="0" type="text" />
+            </div>
+          </div>
+          <div class="hitdice">
+            <div>
+              <div class="total">
+                <label for="totalhd">Total</label><input name="totalhd" value="<%= character.totalhd %>" placeholder="_d__" type="text" />
+              </div>
+              <div class="remaining">
+                <label for="remaininghd">Hit Dice</label><input name="remaininghd" value="<%= character.remaininghd %>" type="text" />
+              </div>
+            </div>
+          </div>
+          <div class="deathsaves">
+            <div>
+              <div class="label">
+                <label>Death Saves</label>
+              </div>
+              <div class="marks">
+                <div class="deathsuccesses">
+                  <label>Successes</label>
+                  <div class="bubbles">
+                    <input name="deathsuccess1" type="checkbox" <%= character.deathsuccess1 ? "checked" : ""%> />
+                    <input name="deathsuccess2" type="checkbox" <%= character.deathsuccess2 ? "checked" : ""%> />
+                    <input name="deathsuccess3" type="checkbox" <%= character.deathsuccess3 ? "checked" : ""%> />
+                  </div>
+                </div>
+                <div class="deathfails">
+                  <label>Failures</label>
+                  <div class="bubbles">
+                    <input name="deathfail1" type="checkbox" <%= character.deathfail1 ? "checked" : ""%> />
+                    <input name="deathfail2" type="checkbox" <%= character.deathfail2 ? "checked" : ""%> />
+                    <input name="deathfail3" type="checkbox" <%= character.deathfail3 ? "checked" : ""%> />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <div class="otherprofs box textblock">
+            <label for="otherprofs">Other Proficiencies and Languages</label><textarea name="otherprofs">=== ARMOR&#013;&#010;&#013;&#010;=== WEAPONS&#013;&#010;&#013;&#010;=== TOOLS&#013;&#010;&#013;&#010;=== LANGUAGES</textarea>
+          </div>
+      </section>
+      <section>
+        <section class="flavor">
+          <div class="personality">
+            <label for="defenses">Defenses & Active Conditions</label><textarea name="defenses"></textarea>
+          </div>
+          <div class="ideals">
+            <label for="savenotes">Saving Throw Notes</label><textarea name="savenotes"></textarea>
+          </div>
+          <div class="bonds">
+            <label for="movement">Movement Speeds</label><textarea name="movement"></textarea>
+          </div>
+          <div class="flaws">
+            <label for="senses">Senses</label><textarea name="senses"></textarea>
+          </div>
+        </section>
+        <div class="passive-perception box">
+          <div class="label-container">
+            <label for="passiveperception">Passive Wisdom (Perception)</label>
+          </div>
+          <input name="passiveperception" value="<%= character.passiveperception %>" placeholder="10" />
+        </div>
+        <div class="passive-perception box">
+          <div class="label-container">
+            <label for="passiveinsight">Passive Wisdom (Insight)</label>
+          </div>
+          <input name="passiveinsight" value="<%= character.passiveinsight %>" placeholder="10" />
+        </div>
+        <div class="passive-perception box">
+          <div class="label-container">
+            <label for="passiveinvestigation">Passive Intelligence (Investigation)</label>
+          </div>
+          <input name="passiveinvestigation" value="<%= character.passiveinvestigation %>" placeholder="10" />
+        </div>
+      </section>
+  
+    </main>
+</form>
+</fieldset>
+</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- partial("../partials/headUU") %>
+
+<body>
+    <%- partial("../partials/headerUU") %>
+    
+    <main class="home bg b3">
+
+        <div>
+            <form action="/user/signup" method="post">
+            <fieldset >
+                <legend>New User</legend>
+
+                <label>Username: <input type="text" name="username" required></label>
+
+                <label>Password: <input type="password" name="password" required> </label>
+
+                <label>What is the airspeed velocity of an unladen swallow? <input type="text" name="question" required> </label>
+                <!-- What do you mean? An African or European swallow? -->
+                
+                <input type="submit" value="Create Account">
+            </fieldset>
+            
+            </form>
+
+            <%- partial("../errors/error", {statusCode:"", statusText:""}) %>
+
+        </div>
+    </main>
+    <div class="p2 bg b2"></div>
+    <div class="p3 bg b1"></div>
+
+</body>
+<script>
+    if ($('pre').text().length == 6 ) {$('pre').toggle()}
+</script>
+</html>

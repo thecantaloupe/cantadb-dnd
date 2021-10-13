@@ -54,6 +54,15 @@
             <input type="submit" onclick="return confirm('Are you sure you want to retire this Character?\nThey will be lost for eternity');" value="Delete"/></form>
       </div>
     <% } %>
+    <div class="skillcontainer">
+      <div><button onclick="location.reload()" class="reloader">Press for a random occurrence!<br> Warning anything could happen.</button></div>
+      <div class="randomskill"></div>
+    </div>
     </div>
   </body>
+  <script>
+    let randomskill="<%-ranskill%>"
+    console.log(randomskill)
+    $('.randomskill').text(randomskill)
+  </script>
 </html>

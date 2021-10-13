@@ -4,6 +4,15 @@
 const express = require("express");
 const Character = require("../models/character");
 
+////////////////////////////////////////////////
+// Import Data
+////////////////////////////////////////////////
+// Import Random Skill data
+const randomSkillArr = require("../models/random_skills.js")
+const ranSkill = () => {
+  return randomSkillArr[Math.floor(Math.random() * randomSkillArr.length)]
+}
+
 /////////////////////////////////////////
 // Create Route
 /////////////////////////////////////////
@@ -26,8 +35,10 @@ router.use((req, res, next) => {
 
 // index route
 router.get("/", (req, res) => {
+  let chosenskill = ranSkill()
+  console.log(chosenskill)
   Character.find({username: req.session.username}, (err, characters) => {
-    res.render("characters/index", { characters });
+    res.render("characters/index", { characters, ranskill: chosenskill});
   });
 });
 

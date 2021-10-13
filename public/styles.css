@@ -465,6 +465,25 @@ form.charsheet main > section div.passive-perception input {
     border-radius: 10px;
 }
 
+div.skillcontainer{
+    max-width: 800px;
+    min-width: 625px;
+    height: 100px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 10px;
+    background-color: rgb(189, 187, 181);
+    border-style: solid;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+}
+
+button.reloader{
+    height: 50px;
+    margin: 10px;
+}
+
 /* ::placeholder { 
     color: Black;
     opacity: 1; 

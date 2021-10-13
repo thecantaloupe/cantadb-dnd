@@ -1,3 +1,6 @@
+
+
+
 //auto fill in modifier from math involved with score
 $('.stat').bind('input', function(){
       const inputName = $(this).attr('name')

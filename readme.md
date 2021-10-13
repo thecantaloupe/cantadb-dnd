@@ -5,38 +5,45 @@ A simple web application to create and manage dnd character sheets
 
 ----
 
+Project adapted a built character sheet from the following the better understand pure css styling. I attempted to copy the styling trends into other parts of the project 
+
+https://www.reddit.com/r/DnD/comments/fvxsgj/5e_html_character_sheet_for_5e_with_basic/
+
+
 ## Technologies Explored
 
-CSS | HTML5 | JavaScript | Jquery | EDM Train API | Mapquest API | Fetch 
+CSS | HTML5 | JavaScript | Jquery | EJS | MongoDB | Express | 
 
 ----
 
 ## Highlights
 
-- EDM API has three APIs
-    - Event Search
-    - Nearby events
-    - Locations
-- Since the event search API parses via unique IDs, the Location API must first be used if those parameters are to be used.
-- Mapquest API is used to obtain latitude and longitude of searched addressed and the averaged latlon returns the state or those coordinates. The state is passed as a parameter to the EDM API.
-- Finally, as the API can return hundreds of entries, a toggleable list was added to view all unique artists up to 100.
+- DnDdb
+    - Two types of Users - User and Admin. Admin will be able to see all characters as well as pull characters and monsters from a database or prebuilt
+    - Uses induces to create, edit, show, and save character sheets to a user
+    - Login page with navbar as well as middleware to manage what sessions can see based on login role
+
 
 ## Main Features
 
 ----
 
-- Two ways to search through the database
-    1. Search events through a combination of Event name, start date, City ,and State
-    2. Enter two Addresses and obtain the events closest to the latlon mean of both locations. A meet me halfway. The same address can be passes to return events closes to that address.
+- Schema with over 60 items 
+    1. Character sheet creates mongoose entry based on schema which is then loaded based on id to various ejs pages
+    2. Csv converting script was made to parse 10000 entry list of skills
 - Hidden related artists with a dropdown that filters how many related artists are shown.
 
 ## Wireframe
 
 ---
-![Wireframe](/images/wireframe.png)
+![Wireframe erd](/images/erd.png)
+![Wireframe front](/images/front.png)
+![Wireframe index](/images/index.png)
+![Wireframe show](/images/show.png)
 
 ## Getting Started
 
 ----
+[Click Here](https://cantadb-dnd.herokuapp.com/) to see the app
 
-[Click Here](https://thecantaloupe.github.io/EDMDB.github.io/) to see the app
+[Github](https://github.com/thecantaloupe/cantadb-dnd) 

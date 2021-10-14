@@ -4,7 +4,7 @@
 //auto fill in modifier from math involved with score
 $('.stat').bind('input', function(){
       const inputName = $(this).attr('name')
-      const mod = parseInt($(this).val()) - 10
+      let mod = parseInt($(this).val()) - 10
       
       // down to nearest even value divided by 2 = modifier score
       if (mod % 2 == 0)
